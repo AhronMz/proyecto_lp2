@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Listado de Clientes | PrimeWash</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+	<h2>Listado de Clientes</h2>
+
+	<!-- Botón para registrar un nuevo cliente -->
+	<a th:href="@{/menu/cliente/nuevo}">+ Registrar Nuevo Cliente</a>
+	<br><br>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Código</th>
+				<th>Nombres</th>
+				<th>Apellidos</th>
+				<th>Tipo de Documento</th>
+				<th>Documento</th>
+				<th>Celular</th>
+				<th>Sexo</th>
+				<th>Distrito</th>
+				<th>Fecha de Registro</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="c : ${lstCliente}">
+				<td th:text="${c.codCliente}"></td>
+
+				<!-- Nombres -->
+				<td th:text="${c.nomCliente}"></td>
+
+				<!-- Concatenamos Apellido Paterno y Materno en una sola columna -->
+				<td th:text="|${c.apePaternoCliente} ${c.apeMaternoCliente}|"></td>
+
+				<td th:text="${c.tipoDocumento}"></td>
+				<td th:text="${c.docId}"></td>
+				
+				<td th:text="${c.telCliente}"></td>
+
+				<!-- Mostramos el nombre del sexo y distrito -->
+				<td th:text="${c.sexo.nomSexo}"></td>
+				<td th:text="${c.distrito.nomDistrito}"></td>
+
+				<td th:text="${c.fecRegistro}"></td>
+
+				<!-- Enlaces de acciones dinámicos capturando el ID del cliente -->
+				<td>
+				    <a th:href="@{/menu/cliente/editar/{id}(id=${c.codCliente})}">Editar</a> |
+				    <a th:href="@{/menu/cliente/eliminar/{id}(id=${c.codCliente})}">Eliminar</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+
+</html>
