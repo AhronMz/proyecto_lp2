@@ -31,4 +31,20 @@ public class ClienteService {
 			return new ResultadoResponse(false, "Hubo un error en la transacción");
 		}
 	}
+	
+	public Cliente getOne(Integer id) {
+		return clienteRepository.findById(id).orElse(null);
+	}
+	
+	@Transactional
+	public ResultadoResponse update(Cliente c) {
+		try {
+			var registrado = clienteRepository.save(c);
+			var mensaje = String.format("Cliente con Id %d actualizado", registrado.getCodCliente());
+			return new ResultadoResponse(true, mensaje);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultadoResponse(false, "Hubo un error en la transacción");
+		}
+	}
 }

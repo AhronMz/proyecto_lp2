@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Actualizar Cliente | PrimeWash</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+	<h2 th:text="|Cliente a Editar - Id ${cliente.codCliente}|" ></h2>
+
+	<form th:action="@{/menu/cliente/actualizar}" th:object="${cliente}" method="post">
+		<input type="hidden" th:field="*{codCliente}" ></input>
+
+		<!-- 1. INFORMACIÓN PERSONAL -->
+		<fieldset>
+			<legend>Información Personal</legend>
+
+			<p>
+				<label for="nomCliente">Nombres:</label><br>
+				<input th:field="*{nomCliente}" type="text" id="nomCliente" name="nomCliente"
+					placeholder="Ej: Juan Carlos" required>
+			</p>
+
+			<p>
+				<label for="apePaternoCliente">Apellido Paterno:</label><br>
+				<input th:field="*{apePaternoCliente}" type="text" id="apePaternoCliente" name="apePaternoCliente"
+					placeholder="Ej: Pérez" required>
+			</p>
+
+			<p>
+				<label for="apeMaternoCliente">Apellido Materno:</label><br>
+				<input th:field="*{apeMaternoCliente}" type="text" id="apeMaternoCliente" name="apeMaternoCliente"
+					placeholder="Ej: Gómez" required>
+			</p>
+		</fieldset>
+
+		<br>
+
+		<!-- 2. DOCUMENTO Y CONTACTO -->
+		<fieldset>
+			<legend>Documento y Contacto</legend>
+
+			<p>
+				<label for="tipoDocumento">Tipo de Documento:</label><br>
+				<select th:field="*{tipoDocumento}" id="tipoDocumento"required>
+					<option value="">-- Seleccione Tipo --</option>
+					<option value="DNI">DNI</option>
+					<option value="RUC">RUC</option>
+					<option value="CARNET DE EXTRANJERIA">CARNET DE EXTRANJERIA</option>
+				</select>
+
+			</p>
+
+			<p>
+				<label for="docId">Número de Documento:</label><br>
+				<input th:field="*{docId}" type="text" id="docId" name="docId" placeholder="Ej: 75469845" required>
+			</p>
+
+			<p>
+				<label for="telCliente">Celular / Teléfono:</label><br>
+				<input th:field="*{telCliente}" type="text" id="telCliente" name="telCliente" placeholder="Ej: 987654321" required>
+			</p>
+		</fieldset>
+
+		<br>
+
+		<!-- 3. INFORMACIÓN ADICIONAL -->
+		<fieldset>
+			<legend>Información Adicional</legend>
+
+			<p>
+				<label for="sexo">Sexo:</label><br>
+				
+				<select th:field="*{sexo}" id="sexo" name="sexo" required>
+					<option value="">-- Seleccione Sexo --</option>
+					<option th:each="s:${lstSexo}"
+							th:value="${s.codSexo}"
+							th:text="${s.nomSexo}"
+					 ></option>
+				</select>
+			</p>
+
+			<p>
+				<label for="distrito">Distrito:</label><br>
+				<select th:field="*{distrito}" id="distrito" name="distrito" required>
+					<option value="">-- Seleccione Distrito --</option>
+					<option th:each="d:${lstDistrito}"
+					th:value="${d.codDistrito}"
+					th:text="${d.nomDistrito}" >					
+					</option>
+				</select>
+			</p>
+			
+			<p>
+			    <input type="hidden" th:field="*{fecRegistro}"/>
+			</p>
+			
+		</fieldset>
+
+		<br>
+
+		<!-- BOTONES -->
+		<button type="submit">Guardar Cliente</button>
+		<!-- TODO: Agregar la ruta de Thymeleaf para regresar al listado -->
+		<a th:href="@{/menu/cliente/listado}">Cancelar</a>
+
+	</form>
+
+</body>
+
+</html>

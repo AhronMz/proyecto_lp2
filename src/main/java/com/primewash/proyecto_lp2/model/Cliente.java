@@ -49,7 +49,7 @@ public class Cliente {
 	private String telCliente;
 
 	@Column(name = "fecreg")
-	private LocalDate fecRegistro = LocalDate.now();
+	private LocalDate fecRegistro;
 	
 	@ManyToOne
 	@JoinColumn(name = "codsex")

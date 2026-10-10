@@ -77,7 +77,7 @@
 			<p>
 				<label for="sexo">Sexo:</label><br>
 				
-				<select th:field="*{sexo}" id="sexo" name="sexo">
+				<select th:field="*{sexo}" id="sexo" name="sexo" required>
 					<option value="">-- Seleccione Sexo --</option>
 					<option th:each="s:${lstSexo}"
 							th:value="${s.codSexo}"
@@ -88,7 +88,7 @@
 
 			<p>
 				<label for="distrito">Distrito:</label><br>
-				<select th:field="*{distrito}" id="distrito" name="distrito">
+				<select th:field="*{distrito}" id="distrito" name="distrito" required>
 					<option value="">-- Seleccione Distrito --</option>
 					<option th:each="d:${lstDistrito}"
 					th:value="${d.codDistrito}"
@@ -98,9 +98,10 @@
 			</p>
 			
 			<p>
-			    <label for="fecRegistro">Fecha de Registro:</label><br>
-			    <input th:field="*{fecRegistro}" type="date" id="fecRegistro" name="fecRegistro" required>
-			</p>
+				<p>
+				    <label for="fecRegistro">Fecha de Registro:</label><br>
+				    <input th:value="${#temporals.format(fecRegistro, 'yyyy-MM-dd')}" type="date" id="fecRegistro" name="fecRegistro" required>
+				</p>
 			
 		</fieldset>
 
