@@ -29,7 +29,7 @@ public class ClienteController {
 
 	@GetMapping("/listado")
 	public String listado(Model model) {
-		model.addAttribute("lstCliente",clienteService.getClieAll());
+		model.addAttribute("lstCliente",clienteService.getAll());
 		
 		return "cliente/listado";
 	}
@@ -63,7 +63,7 @@ public class ClienteController {
 	@PostMapping("actualizar")
 	public String guardar(@ModelAttribute Cliente c, RedirectAttributes flash) {
 		var response = clienteService.update(c);
-		var alert = Alert.sweetToast(response.mensaje(),"success",5000);
+		var alert = Alert.sweetToast(response.mensaje(),response.success() ? "success" : "error", 5000);
 		
 		flash.addFlashAttribute("alert",alert);
 		return "redirect:/menu/cliente/listado";

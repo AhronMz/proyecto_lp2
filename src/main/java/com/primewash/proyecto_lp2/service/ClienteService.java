@@ -17,8 +17,8 @@ public class ClienteService {
 
 	private final ClienteRepository clienteRepository;
 
-	public List<Cliente> getClieAll() {
-		return clienteRepository.findAll();
+	public List<Cliente> getAll() {
+		return clienteRepository.findAllByOrderByCodClienteDesc();
 	}
 	@Transactional
 	public ResultadoResponse create(Cliente c) {

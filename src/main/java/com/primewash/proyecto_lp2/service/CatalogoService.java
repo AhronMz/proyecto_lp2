@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.primewash.proyecto_lp2.model.Distrito;
+import com.primewash.proyecto_lp2.model.Rol;
 import com.primewash.proyecto_lp2.model.Sexo;
 import com.primewash.proyecto_lp2.repository.DistritoRepository;
+import com.primewash.proyecto_lp2.repository.RolRepository;
 import com.primewash.proyecto_lp2.repository.SexoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class CatalogoService {
 	
 	private final DistritoRepository distritoRepository;
 	private final SexoRepository sexoRepository;
+	private final RolRepository rolRepository;
 	
 	
 	public List<Distrito>getDistAll(){
@@ -28,6 +31,8 @@ public class CatalogoService {
 		return sexoRepository.findAll();
 	}
 	
-
+	public List<Rol> getRolesAll() {
+	    return rolRepository.findAll();
+	}
 }
 

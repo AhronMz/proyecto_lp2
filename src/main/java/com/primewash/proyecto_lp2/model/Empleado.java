@@ -63,7 +63,7 @@ public class Empleado {
     @Column(name = "claemp")
     private String claEmpleado;
     
-    @Column(name = "estado", nullable = false)
+    @Column(name = "estado")
     private Boolean estado;
 
     @ManyToOne
