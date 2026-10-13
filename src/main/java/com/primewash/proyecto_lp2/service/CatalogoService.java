@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.primewash.proyecto_lp2.model.Categoria;
 import com.primewash.proyecto_lp2.model.Distrito;
 import com.primewash.proyecto_lp2.model.Rol;
 import com.primewash.proyecto_lp2.model.Sexo;
+import com.primewash.proyecto_lp2.repository.CategoriaRepository;
 import com.primewash.proyecto_lp2.repository.DistritoRepository;
 import com.primewash.proyecto_lp2.repository.RolRepository;
 import com.primewash.proyecto_lp2.repository.SexoRepository;
@@ -20,6 +22,7 @@ public class CatalogoService {
 	private final DistritoRepository distritoRepository;
 	private final SexoRepository sexoRepository;
 	private final RolRepository rolRepository;
+	private final CategoriaRepository categoriaRepository;
 	
 	
 	
@@ -46,6 +49,14 @@ public class CatalogoService {
 	
 	public List<Rol> searchRolEmpleado(){
 		return rolRepository.findRolConEmpleado();
+	}
+	
+	public List<Categoria> getCategoriasAll(){
+	    return categoriaRepository.findAll();
+	}
+	
+	public List<Categoria> searchCategoriaProducto(){
+	    return categoriaRepository.findCategoriaConProducto();
 	}
 }
 
