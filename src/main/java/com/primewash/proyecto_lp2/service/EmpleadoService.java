@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.primewash.proyecto_lp2.dto.EmpleadoFilter;
 import com.primewash.proyecto_lp2.dto.ResultadoResponse;
 import com.primewash.proyecto_lp2.model.Empleado;
 import com.primewash.proyecto_lp2.repository.EmpleadoRepository;
@@ -20,7 +21,11 @@ public class EmpleadoService {
 	public List<Empleado> getAll() {
 		return empleadoRepository.findAllByOrderByCodEmpleadoDesc();
 	}
-
+	
+	public List<Empleado> search(EmpleadoFilter filter) {
+		return empleadoRepository.findByFilters(filter.codRol(),filter.codDistrito());
+	}
+	
 	@Transactional
 	public ResultadoResponse create(Empleado e) {
 		try {

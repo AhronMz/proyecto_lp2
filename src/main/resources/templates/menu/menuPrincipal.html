@@ -44,16 +44,20 @@
 			<!-- Clientes -->
 			<div class="col-12 col-md-6 col-lg-4">
 				<div class="card menu-card shadow-sm h-100">
-					<div class="card-body text-center p-4">
-						<i class="fa-solid fa-users menu-icon mb-3"></i>
-						<h2 class="h4 card-title">Clientes</h2>
-						<p class="card-text text-muted">
-							Registra y administra la información de tus clientes.
-						</p>
-						<a th:href="@{/menu/cliente/listado}" class="btn btn-primary w-100">
-							<i class="fa-solid fa-arrow-right me-2"></i>
-							Ir a clientes
-						</a>
+					<div class="card-body text-center p-4 d-flex flex-column justify-content-between">
+						<div>
+							<i class="fa-solid fa-users menu-icon mb-3"></i>
+							<h2 class="h4 card-title">Clientes</h2>
+							<p class="card-text text-muted mb-0">
+								Registra y administra la información de tus clientes.
+							</p>
+						</div>
+						<div class="mt-4">
+							<a th:href="@{/menu/cliente/listado}" class="btn btn-primary w-100">
+								<i class="fa-solid fa-arrow-right me-2"></i>
+								Ir a clientes
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -61,16 +65,20 @@
 			<!-- Empleados -->
 			<div class="col-12 col-md-6 col-lg-4">
 				<div class="card menu-card shadow-sm h-100">
-					<div class="card-body text-center p-4">
-						<i class="fa-solid fa-user-tie menu-icon mb-3"></i>
-						<h2 class="h4 card-title">Empleados</h2>
-						<p class="card-text text-muted">
-							Registra y administra la información de tus empleados.
-						</p>
-						<a th:href="@{/menu/empleado/listado}" class="btn btn-primary w-100">
-							<i class="fa-solid fa-arrow-right me-2"></i>
-							Ir a empleados
-						</a>
+					<div class="card-body text-center p-4 d-flex flex-column justify-content-between">
+						<div>
+							<i class="fa-solid fa-user-tie menu-icon mb-3"></i>
+							<h2 class="h4 card-title">Empleados</h2>
+							<p class="card-text text-muted mb-0">
+								Registra y administra la información de tus empleados.
+							</p>
+						</div>
+						<div class="mt-4">
+							<a th:href="@{/menu/empleado/listado}" class="btn btn-primary w-100">
+								<i class="fa-solid fa-arrow-right me-2"></i>
+								Ir a empleados
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.primewash.proyecto_lp2.dto.EmpleadoFilter;
 import com.primewash.proyecto_lp2.model.Empleado;
 import com.primewash.proyecto_lp2.service.CatalogoService;
 import com.primewash.proyecto_lp2.service.EmpleadoService;
@@ -27,8 +28,11 @@ public class EmpleadoController {
 	private final CatalogoService catalogoService;
 
 	@GetMapping("/listado")
-	public String listado(Model model) {
-		model.addAttribute("lstEmpleado", empleadoService.getAll());
+	public String listado(@ModelAttribute EmpleadoFilter filter ,Model model) {
+		model.addAttribute("lstEmpleado", empleadoService.search(filter));
+		model.addAttribute("lstRol", catalogoService.searchRolEmpleado());
+		model.addAttribute("lstDistrito", catalogoService.searchDistritoEmpleado());
+		model.addAttribute("filter", filter);
 		return "empleado/listado";
 	}
 

@@ -22,6 +22,7 @@ public class CatalogoService {
 	private final RolRepository rolRepository;
 	
 	
+	
 	public List<Distrito>getDistAll(){
 		return distritoRepository.findAll();
 	}
@@ -33,6 +34,18 @@ public class CatalogoService {
 	
 	public List<Rol> getRolesAll() {
 	    return rolRepository.findAll();
+	}
+	
+	public List<Distrito>searchDistritoCliente(){
+		return distritoRepository.findDistritoConCliente();
+	}
+	
+	public List<Distrito> searchDistritoEmpleado(){
+		return distritoRepository.findDistritoConEmpleado();
+	}
+	
+	public List<Rol> searchRolEmpleado(){
+		return rolRepository.findRolConEmpleado();
 	}
 }
 

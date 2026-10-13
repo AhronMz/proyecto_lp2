@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.primewash.proyecto_lp2.dto.ClienteFilter;
 import com.primewash.proyecto_lp2.model.Cliente;
 import com.primewash.proyecto_lp2.service.CatalogoService;
 import com.primewash.proyecto_lp2.service.ClienteService;
@@ -28,9 +29,10 @@ public class ClienteController {
 	private final CatalogoService catalogoService;
 
 	@GetMapping("/listado")
-	public String listado(Model model) {
-		model.addAttribute("lstCliente",clienteService.getAll());
-		
+	public String listado(@ModelAttribute ClienteFilter filter, Model model) {
+		model.addAttribute("lstCliente",clienteService.search(filter));
+		model.addAttribute("lstDistrito", catalogoService.searchDistritoCliente());
+		model.addAttribute("filter", filter);	
 		return "cliente/listado";
 	}
 	
