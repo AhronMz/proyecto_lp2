@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="barraNavegacion"
+	xmlns:th="http://www.thymeleaf.org">
+	<div class="container-fluid">
+		<a class="navbar-brand" th:href="@{/menu}"><i class="fa-solid fa-soap me-2"></i>PrimeWash</a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barraMenu"
+			aria-controls="barraMenu" aria-expanded="false" aria-label="Mostrar navegación">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="barraMenu">
+			<ul class="navbar-nav me-auto">
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="menuClientes" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						Clientes
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="menuClientes">
+						<li>
+							<a class="dropdown-item" th:href="@{/menu/cliente/listado}">
+								Listado
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" th:href="@{/menu/cliente/nuevo}">
+								Agregar cliente
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="menuEmpleados" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						Empleados
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="menuEmpleados">
+						<li>
+							<a class="dropdown-item" th:href="@{/menu/empleado/listado}">
+								Listado
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" th:href="@{/menu/empleado/nuevo}">
+								Agregar empleado
+							</a>
+						</li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</nav>

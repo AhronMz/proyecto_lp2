@@ -11,6 +11,7 @@
 </head>
 
 <body>
+	<div th:replace="~{fragments/navbar :: barraNavegacion}"></div>
 	<div class="container-fluid mt-5 px-4">
 		<div class="card shadow-lg">
 			<div class="card-body">
@@ -54,27 +55,23 @@
 								<td th:text="${e.rol.nomRol}" class="text-center"></td>
 								<td th:text="${e.sexo.nomSexo}" class="text-center"></td>
 								<td th:text="${e.distrito.nomDistrito}"></td>
-								<td th:text="${#temporals.format(e.fecEmpleado, 'dd-MM-yyyy')}" class="text-center"></td>
+								<td th:text="${#temporals.format(e.fecEmpleado, 'dd-MM-yyyy')}" class="text-center">
+								</td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center align-items-center gap-2">
 										<!-- Botón Editar -->
-										<a th:href="@{/menu/empleado/editar/{id}(id=${e.codEmpleado})}" 
-										   class="btn btn-outline-primary btn-sm" 
-										   title="Editar" 
-										   aria-label="Editar" 
-										   role="button">
+										<a th:href="@{/menu/empleado/editar/{id}(id=${e.codEmpleado})}"
+											class="btn btn-outline-primary btn-sm" title="Editar" aria-label="Editar"
+											role="button">
 											<i class="fa-regular fa-pen-to-square"></i>
 										</a>
-										
+
 										<!-- Switch Habilitar / Deshabilitar -->
 										<div class="form-check form-switch m-0 p-0" style="min-height: auto;">
-											<input class="form-check-input ms-0" 
-												   type="checkbox" 
-												   role="switch"
-												   th:checked="${e.estado}" 
-												   title="Cambiar Estado (Habilitar/Inhabilitar)"
-												   th:onchange="|window.location.href='@{/menu/empleado/cambiar-estado/{id}(id=${e.codEmpleado})}'|" 
-												   style="cursor: pointer;">
+											<input class="form-check-input ms-0" type="checkbox" role="switch"
+												th:checked="${e.estado}" title="Cambiar Estado (Habilitar/Inhabilitar)"
+												th:onchange="|window.location.href='@{/menu/empleado/cambiar-estado/{id}(id=${e.codEmpleado})}'|"
+												style="cursor: pointer;">
 										</div>
 									</div>
 								</td>
@@ -86,6 +83,7 @@
 		</div>
 	</div>
 	<th:block th:utext="${alert}"></th:block>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
