@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Menú | PrimeWash</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+
+	<style>
+		body {
+			min-height: 100vh;
+			background: #f2f5f9;
+		}
+
+		.menu-card {
+			transition: transform .2s ease, box-shadow .2s ease;
+		}
+
+		.menu-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 1rem 2rem rgba(0, 0, 0, .12);
+		}
+
+		.menu-icon {
+			font-size: 2.5rem;
+			color: #0d6efd;
+		}
+	</style>
+</head>
+
+<body>
+	<div th:replace="~{fragments/navbar :: barraNavegacion}"></div>
+
+	<main class="container py-5">
+		<div class="text-center mb-5">
+			<h1 class="fw-bold">Menú principal</h1>
+			<p class="text-muted">Selecciona una opción para continuar</p>
+		</div>
+
+		<div class="row g-4 justify-content-center">
+			<!-- Clientes -->
+			<div class="col-12 col-md-6 col-lg-4">
+				<div class="card menu-card shadow-sm h-100">
+					<div class="card-body text-center p-4">
+						<i class="fa-solid fa-users menu-icon mb-3"></i>
+						<h2 class="h4 card-title">Clientes</h2>
+						<p class="card-text text-muted">
+							Registra y administra la información de tus clientes.
+						</p>
+						<a th:href="@{/menu/cliente/listado}" class="btn btn-primary w-100">
+							<i class="fa-solid fa-arrow-right me-2"></i>
+							Ir a clientes
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Empleados -->
+			<div class="col-12 col-md-6 col-lg-4">
+				<div class="card menu-card shadow-sm h-100">
+					<div class="card-body text-center p-4">
+						<i class="fa-solid fa-user-tie menu-icon mb-3"></i>
+						<h2 class="h4 card-title">Empleados</h2>
+						<p class="card-text text-muted">
+							Registra y administra la información de tus empleados.
+						</p>
+						<a th:href="@{/menu/empleado/listado}" class="btn btn-primary w-100">
+							<i class="fa-solid fa-arrow-right me-2"></i>
+							Ir a empleados
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
