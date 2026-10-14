@@ -1,105 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layoutBase(contenido)">
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Menú | PrimeWash</title>
-
+	<title>CARWASH</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	<style>
-		body {
-			min-height: 100vh;
-			background: #f2f5f9;
-		}
+	<!-- para el datatable -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 
-		.menu-card {
-			transition: transform .2s ease, box-shadow .2s ease;
-		}
-
-		.menu-card:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 1rem 2rem rgba(0, 0, 0, .12);
-		}
-
-		.menu-icon {
-			font-size: 2.5rem;
-			color: #0d6efd;
-		}
-	</style>
+	<link rel="stylesheet" th:href="@{/css/layout.css}">
 </head>
 
 <body>
-	<div th:replace="~{fragments/navbar :: barraNavegacion}"></div>
-
-	<main class="container py-5">
-		<div class="text-center mb-5">
-			<h1 class="fw-bold">Menú principal</h1>
-			<p class="text-muted">Selecciona una opción para continuar</p>
+	<!-- Header -->
+	<header class="header">
+		<div class="container d-flex justify-content-between align-items-center py-2">
+			<div class="btn-menu">
+				<label for="btn-menu"><i class="fa-solid fa-bars"></i></label>
+			</div>
+			<div class="text-white">
+				<h1 class="h5 m-0">CARWASH - Bienvenido, <span th:text="${session.fullname}">Nombre del
+						usuario</span></h1>
+			</div>
 		</div>
+	</header>
 
-		<div class="row g-4 justify-content-center">
-			<!-- Clientes -->
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card menu-card shadow-sm h-100">
-					<div class="card-body text-center p-4 d-flex flex-column justify-content-between">
-						<div>
-							<i class="fa-solid fa-users menu-icon mb-3"></i>
-							<h2 class="h4 card-title">Clientes</h2>
-							<p class="card-text text-muted mb-0">
-								Registra y administra la información de tus clientes.
-							</p>
-						</div>
-						<div class="mt-4">
-							<a th:href="@{/menu/cliente/listado}" class="btn btn-primary w-100">
-								<i class="fa-solid fa-arrow-right me-2"></i>
-								Ir a clientes
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+	<!-- Checkbox toggle -->
+	<input type="checkbox" id="btn-menu">
 
-			<!-- Empleados -->
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card menu-card shadow-sm h-100">
-					<div class="card-body text-center p-4 d-flex flex-column justify-content-between">
-						<div>
-							<i class="fa-solid fa-user-tie menu-icon mb-3"></i>
-							<h2 class="h4 card-title">Empleados</h2>
-							<p class="card-text text-muted mb-0">
-								Registra y administra la información de tus empleados.
-							</p>
-						</div>
-						<div class="mt-4">
-							<a th:href="@{/menu/empleado/listado}" class="btn btn-primary w-100">
-								<i class="fa-solid fa-arrow-right me-2"></i>
-								Ir a empleados
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="col-md-6 mb-4"> <!-- Ajusta las columnas según tu CSS -->
-			    <div class="card text-center shadow-sm h-100">
-			        <div class="card-body">
-			            <i class="fa-solid fa-boxes-stacked text-primary mb-3" style="font-size: 3rem;"></i>
-			            <h4 class="card-title fw-bold">Productos</h4>
-			            <p class="card-text text-muted">Registra y administra el inventario de tus productos.</p>
-			            <a th:href="@{/menu/producto/listado}" class="btn btn-primary px-4 mt-2">
-			                <i class="fa-solid fa-arrow-right me-2"></i>Ir a productos
-			            </a>
-			        </div>
-			    </div>
-			</div>
-			
+	<!-- Menú Lateral -->
+	<div class="container-menu">
+		<div class="cont-menu">
+			<nav>
+				<a th:href="@{/home/dashboard}"><i class="fa-solid fa-house"></i> Inicio</a>
+				<a th:href="@{/menu/producto/listado}"><i class="fa-solid fa-boxes-stacked"></i> Producto</a>
+				<a th:href="@{/menu/cliente/listado}"><i class="fa-solid fa-boxes-stacked"></i> Cliente</a>
+				<a th:href="@{/menu/empleado/listado}"><i class="fa-solid fa-boxes-stacked"></i> Empleado</a>
+				<a href="#" id="cerrar-session"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+			</nav>
+			<label for="btn-menu"><i class="fa-solid fa-xmark"></i></label>
 		</div>
+	</div>
+
+	<main style="padding: 70px;">
+	<div class="container mt-5 pt-5 text-white" th:replace="${contenido}">[Contenido aquí]</div>
 	</main>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/js/validacion-bootstrap.js}"></script>
+
+	<script th:inline="javascript">
+		$("#cerrar-session").on("click", function () {
+			Swal.fire({
+				title: "¿Deseas cerrar sesión?",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Sí, cerrar",
+				cancelButtonText: "No"
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.href = /*[[@{/cerrar-sesion}]]*/ "";
+				}
+			});
+		});
+	</script>
+
+	<th:block th:utext="${alert}"></th:block>
 </body>
 
 </html>

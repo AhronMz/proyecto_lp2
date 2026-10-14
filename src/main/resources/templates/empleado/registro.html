@@ -1,153 +1,139 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="menu/menuPrincipal :: layoutBase(~{::contenido})">
 
-<head>
-	<meta charset="UTF-8">
-	<title>Registrar Nuevo Empleado | PrimeWash</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
 
-<body class="bg-light">
-	<div th:replace="~{fragments/navbar :: barraNavegacion}"></div>
-	<div class="container my-5">
-		<div class="card shadow-lg border-0">
-			<!-- ENCABEZADO DE LA TARJETA -->
-			<div class="card-header bg-dark text-white py-3">
-				<h3 class="card-title m-0">
-					<i class="fa-solid fa-user-plus me-2"></i>Registrar Nuevo Empleado
-				</h3>
-			</div>
+<div th:fragment="contenido">
 
-			<div class="card-body p-4">
-				<form th:action="@{/menu/empleado/registrar}" th:object="${empleado}" method="post">
+	<div class="card shadow-lg border-0">
+		<!-- ENCABEZADO DE LA TARJETA -->
+		<div class="card-header bg-dark text-white py-3">
+			<h3 class="card-title m-0">
+				<i class="fa-solid fa-user-plus me-2"></i>Registrar Nuevo Empleado
+			</h3>
+		</div>
 
-					<!-- 1. INFORMACIÓN PERSONAL -->
-					<h5 class="text-primary mb-3"><i class="fa-solid fa-id-card me-2"></i>Información Personal</h5>
-					<div class="row g-3 mb-4">
-						<div class="col-md-4">
-							<label for="nomEmpleado" class="form-label fw-bold">Nombres</label>
-							<input th:field="*{nomEmpleado}" type="text" class="form-control" id="nomEmpleado"
-								placeholder="Ej: Juan Carlos" required>
-						</div>
-						<div class="col-md-4">
-							<label for="apePaternoEmpleado" class="form-label fw-bold">Apellido Paterno</label>
-							<input th:field="*{apePaternoEmpleado}" type="text" class="form-control"
-								id="apePaternoEmpleado" placeholder="Ej: Pérez" required>
-						</div>
-						<div class="col-md-4">
-							<label for="apeMaternoEmpleado" class="form-label fw-bold">Apellido Materno</label>
-							<input th:field="*{apeMaternoEmpleado}" type="text" class="form-control"
-								id="apeMaternoEmpleado" placeholder="Ej: Gómez" required>
-						</div>
+		<div class="card-body p-4">
+			<form th:action="@{/menu/empleado/registrar}" th:object="${empleado}" method="post">
+
+				<!-- 1. INFORMACIÓN PERSONAL -->
+				<h5 class="text-primary mb-3"><i class="fa-solid fa-id-card me-2"></i>Información Personal</h5>
+				<div class="row g-3 mb-4">
+					<div class="col-md-4">
+						<label for="nomEmpleado" class="form-label fw-bold">Nombres</label>
+						<input th:field="*{nomEmpleado}" type="text" class="form-control" id="nomEmpleado"
+							placeholder="Ej: Juan Carlos" required>
 					</div>
-
-					<!-- 2. DOCUMENTO Y CONTACTO -->
-					<h5 class="text-primary mb-3"><i class="fa-solid fa-address-book me-2"></i>Documento y Contacto</h5>
-					<div class="row g-3 mb-4">
-						<div class="col-md-3">
-							<label for="tipoDocumento" class="form-label fw-bold">Tipo de Documento</label>
-							<select th:field="*{tipoDocumento}" class="form-select" id="tipoDocumento" required>
-								<option value="">-- Seleccione Tipo --</option>
-								<option value="DNI">DNI</option>
-								<option value="RUC">RUC</option>
-								<option value="C.E">CARNET DE EXTRANJERÍA</option>
-							</select>
-						</div>
-						<div class="col-md-3">
-							<label for="docId" class="form-label fw-bold">Número de Documento</label>
-							<input th:field="*{docId}" type="text" class="form-control" id="docId"
-								placeholder="Ej: 75469845" required>
-						</div>
-						<div class="col-md-3">
-							<label for="celEmpleado" class="form-label fw-bold">Celular</label>
-							<input th:field="*{celEmpleado}" type="text" class="form-control" id="celEmpleado"
-								placeholder="Ej: 987654321" required>
-						</div>
-						<div class="col-md-3">
-							<label for="corEmpleado" class="form-label fw-bold">Correo Electrónico</label>
-							<input th:field="*{corEmpleado}" type="email" class="form-control" id="corEmpleado"
-								placeholder="Ej: juan@primewash.com" required>
-						</div>
-						<div class="col-md-12">
-							<label for="dirEmpleado" class="form-label fw-bold">Dirección</label>
-							<input th:field="*{dirEmpleado}" type="text" class="form-control" id="dirEmpleado"
-								placeholder="Ej: Av. Perú 1234" required>
-						</div>
+					<div class="col-md-4">
+						<label for="apePaternoEmpleado" class="form-label fw-bold">Apellido Paterno</label>
+						<input th:field="*{apePaternoEmpleado}" type="text" class="form-control" id="apePaternoEmpleado"
+							placeholder="Ej: Pérez" required>
 					</div>
-
-					<!-- 3. ACCESO Y CREDENCIALES -->
-					<h5 class="text-primary mb-3"><i class="fa-solid fa-lock me-2"></i>Credenciales de Sistema</h5>
-					<div class="row g-3 mb-4">
-						<div class="col-md-6">
-							<label for="usuEmpleado" class="form-label fw-bold">Usuario</label>
-							<input th:field="*{usuEmpleado}" type="text" class="form-control" id="usuEmpleado"
-								placeholder="Ej: jperez" required>
-						</div>
-						<div class="col-md-6">
-							<label for="claEmpleado" class="form-label fw-bold">Contraseña</label>
-							<input th:field="*{claEmpleado}" type="password" class="form-control" id="claEmpleado"
-								placeholder="••••••••" required>
-						</div>
+					<div class="col-md-4">
+						<label for="apeMaternoEmpleado" class="form-label fw-bold">Apellido Materno</label>
+						<input th:field="*{apeMaternoEmpleado}" type="text" class="form-control" id="apeMaternoEmpleado"
+							placeholder="Ej: Gómez" required>
 					</div>
+				</div>
 
-					<!-- 4. CATÁLOGOS Y FECHA -->
-					<h5 class="text-primary mb-3"><i class="fa-solid fa-list-check me-2"></i>Asignación y Datos
-						Adicionales</h5>
-					<div class="row g-3 mb-4">
-						<div class="col-md-3">
-							<label for="sexo" class="form-label fw-bold">Sexo</label>
-							<select th:field="*{sexo}" class="form-select" id="sexo" required>
-								<option value="">-- Seleccione --</option>
-								<option th:each="s : ${lstSexo}" th:value="${s.codSexo}" th:text="${s.nomSexo}">
-								</option>
-							</select>
-						</div>
-						<div class="col-md-3">
-							<label for="distrito" class="form-label fw-bold">Distrito</label>
-							<select th:field="*{distrito}" class="form-select" id="distrito" required>
-								<option value="">-- Seleccione --</option>
-								<option th:each="d : ${lstDistrito}" th:value="${d.codDistrito}"
-									th:text="${d.nomDistrito}">
-								</option>
-							</select>
-						</div>
-						<div class="col-md-3">
-							<label for="rol" class="form-label fw-bold">Rol de Trabajo</label>
-							<select th:field="*{rol}" class="form-select" id="rol" required>
-								<option value="">-- Seleccione Rol --</option>
-								<option th:each="r : ${lstRol}" th:value="${r.codRol}" th:text="${r.nomRol}">
-								</option>
-							</select>
-						</div>
-						<div class="col-md-3">
-							<label for="fecEmpleado" class="form-label fw-bold">Fecha de Ingreso</label>
-							<input th:value="${#temporals.format(fecEmpleado, 'yyyy-MM-dd')}" type="date"
-								class="form-control" id="fecEmpleado" name="fecEmpleado" required>
-						</div>
+				<!-- 2. DOCUMENTO Y CONTACTO -->
+				<h5 class="text-primary mb-3"><i class="fa-solid fa-address-book me-2"></i>Documento y Contacto</h5>
+				<div class="row g-3 mb-4">
+					<div class="col-md-3">
+						<label for="tipoDocumento" class="form-label fw-bold">Tipo de Documento</label>
+						<select th:field="*{tipoDocumento}" class="form-select" id="tipoDocumento" required>
+							<option value="">-- Seleccione Tipo --</option>
+							<option value="DNI">DNI</option>
+							<option value="RUC">RUC</option>
+							<option value="C.E">CARNET DE EXTRANJERÍA</option>
+						</select>
 					</div>
-
-					<hr class="my-4">
-
-					<!-- BOTONES DE ACCIÓN -->
-					<div class="d-flex justify-content-end gap-2">
-						<a th:href="@{/menu/empleado/listado}" class="btn btn-secondary px-4">
-							<i class="fa-solid fa-xmark me-1"></i> Cancelar
-						</a>
-						<button type="submit" class="btn btn-success px-4">
-							<i class="fa-solid fa-floppy-disk me-1"></i> Guardar Empleado
-						</button>
+					<div class="col-md-3">
+						<label for="docId" class="form-label fw-bold">Número de Documento</label>
+						<input th:field="*{docId}" type="text" class="form-control" id="docId"
+							placeholder="Ej: 75469845" required>
 					</div>
+					<div class="col-md-3">
+						<label for="celEmpleado" class="form-label fw-bold">Celular</label>
+						<input th:field="*{celEmpleado}" type="text" class="form-control" id="celEmpleado"
+							placeholder="Ej: 987654321" required>
+					</div>
+					<div class="col-md-3">
+						<label for="corEmpleado" class="form-label fw-bold">Correo Electrónico</label>
+						<input th:field="*{corEmpleado}" type="email" class="form-control" id="corEmpleado"
+							placeholder="Ej: juan@primewash.com" required>
+					</div>
+					<div class="col-md-12">
+						<label for="dirEmpleado" class="form-label fw-bold">Dirección</label>
+						<input th:field="*{dirEmpleado}" type="text" class="form-control" id="dirEmpleado"
+							placeholder="Ej: Av. Perú 1234" required>
+					</div>
+				</div>
 
-				</form>
-			</div>
+				<!-- 3. ACCESO Y CREDENCIALES -->
+				<h5 class="text-primary mb-3"><i class="fa-solid fa-lock me-2"></i>Credenciales de Sistema</h5>
+				<div class="row g-3 mb-4">
+					<div class="col-md-6">
+						<label for="usuEmpleado" class="form-label fw-bold">Usuario</label>
+						<input th:field="*{usuEmpleado}" type="text" class="form-control" id="usuEmpleado"
+							placeholder="Ej: jperez" required>
+					</div>
+					<div class="col-md-6">
+						<label for="claEmpleado" class="form-label fw-bold">Contraseña</label>
+						<input th:field="*{claEmpleado}" type="password" class="form-control" id="claEmpleado"
+							placeholder="••••••••" required>
+					</div>
+				</div>
+
+				<!-- 4. CATÁLOGOS Y FECHA -->
+				<h5 class="text-primary mb-3"><i class="fa-solid fa-list-check me-2"></i>Asignación y Datos
+					Adicionales</h5>
+				<div class="row g-3 mb-4">
+					<div class="col-md-3">
+						<label for="sexo" class="form-label fw-bold">Sexo</label>
+						<select th:field="*{sexo}" class="form-select" id="sexo" required>
+							<option value="">-- Seleccione --</option>
+							<option th:each="s : ${lstSexo}" th:value="${s.codSexo}" th:text="${s.nomSexo}">
+							</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="distrito" class="form-label fw-bold">Distrito</label>
+						<select th:field="*{distrito}" class="form-select" id="distrito" required>
+							<option value="">-- Seleccione --</option>
+							<option th:each="d : ${lstDistrito}" th:value="${d.codDistrito}" th:text="${d.nomDistrito}">
+							</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="rol" class="form-label fw-bold">Rol de Trabajo</label>
+						<select th:field="*{rol}" class="form-select" id="rol" required>
+							<option value="">-- Seleccione Rol --</option>
+							<option th:each="r : ${lstRol}" th:value="${r.codRol}" th:text="${r.nomRol}">
+							</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="fecEmpleado" class="form-label fw-bold">Fecha de Ingreso</label>
+						<input th:value="${#temporals.format(fecEmpleado, 'yyyy-MM-dd')}" type="date"
+							class="form-control" id="fecEmpleado" name="fecEmpleado" required>
+					</div>
+				</div>
+
+				<hr class="my-4">
+
+				<!-- BOTONES DE ACCIÓN -->
+				<div class="d-flex justify-content-end gap-2">
+					<a th:href="@{/menu/empleado/listado}" class="btn btn-secondary px-4">
+						<i class="fa-solid fa-xmark me-1"></i> Cancelar
+					</a>
+					<button type="submit" class="btn btn-success px-4">
+						<i class="fa-solid fa-floppy-disk me-1"></i> Guardar Empleado
+					</button>
+				</div>
+
+			</form>
 		</div>
 	</div>
+</div>
 
-	<th:block th:utext="${alert}"></th:block>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
 </html>
