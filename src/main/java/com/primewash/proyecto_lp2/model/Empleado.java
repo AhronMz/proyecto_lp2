@@ -77,4 +77,8 @@ public class Empleado {
     @ManyToOne
     @JoinColumn(name = "codsex")
     private Sexo sexo;
+    
+    public String getNombreCompleto() {
+    	return nomEmpleado + " "+ apePaternoEmpleado + " " + apeMaternoEmpleado;
+    }
 }

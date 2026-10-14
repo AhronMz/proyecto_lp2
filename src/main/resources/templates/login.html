@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PrimeWash - Login</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<div class="container">
+	<div class="card login-card">
+		<div class="row g-0">
+
+			<!-- Panel con carrusel didáctico -->
+			<div class="col-md-6 panel-ilustracion">
+				<div id="carruselLavado" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+					<div class="carousel-inner">
+						<div class="carousel-item active"><img th:src="@{/imagenes/logo-primewash.svg}" alt="Bienvenido a PrimeWash"></div>
+						<div class="carousel-item"><img th:src="@{/imagenes/paso1-jabon.svg}" alt="Paso 1: jabón"></div>
+						<div class="carousel-item"><img th:src="@{/imagenes/paso2-enjuague.svg}" alt="Paso 2: enjuague"></div>
+						<div class="carousel-item"><img th:src="@{/imagenes/paso3-secado.svg}" alt="Paso 3: secado"></div>
+					</div>
+					<div class="carousel-indicators indicadores">
+						<button type="button" data-bs-target="#carruselLavado" data-bs-slide-to="0" class="active"></button>
+						<button type="button" data-bs-target="#carruselLavado" data-bs-slide-to="1"></button>
+						<button type="button" data-bs-target="#carruselLavado" data-bs-slide-to="2"></button>
+						<button type="button" data-bs-target="#carruselLavado" data-bs-slide-to="3"></button>
+					</div>
+				</div>
+				<div class="pasos">
+					<div class="paso"><i class="fa-solid fa-soap"></i>1. Jabón</div>
+					<div class="paso"><i class="fa-solid fa-droplet"></i>2. Enjuague</div>
+					<div class="paso"><i class="fa-solid fa-wind"></i>3. Secado</div>
+				</div>
+			</div>
+
+			<!-- Formulario -->
+			<div class="col-md-6 panel-form">
+				<div class="text-center mb-2"><img th:src="@{/imagenes/logo-primewash.svg}" alt="Logo PrimeWash" class="logo-login"></div>
+				<h3 class="text-center fw-bold mb-1">PRIMEWASH</h3>
+				<p class="text-center text-muted mb-4">Inicio de sesión</p>
+
+				<form th:action="@{/iniciar-sesion}" method="get" th:object="${filter}">
+					<div class="mb-3">
+						<label class="form-label">Cuenta</label>
+						<div class="input-group">
+							<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+							<input type="text" class="form-control" placeholder="Ingrese su cuenta" th:field="*{usuario}"/>
+						</div>
+					</div>
+					<div class="mb-4">
+						<label class="form-label">Contraseña</label>
+						<div class="input-group">
+							<span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+							<input type="password" class="form-control" placeholder="Ingrese su contraseña" th:field="*{clave}"/>
+						</div>
+					</div>
+					<div class="d-grid">
+						<button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> INGRESAR</button>
+					</div>
+				</form>
+				<p class="text-center text-muted small mt-4 mb-0">&copy; 2026 PRIMEWASH</p>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<th:block th:utext="${alert}"></th:block>
+</body>
+</html>

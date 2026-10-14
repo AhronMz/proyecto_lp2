@@ -6,7 +6,7 @@
 }
 
 body {
-	background-image: url('/imagenes/pharmacy.jpg');
+	background: url('../imagenes/Textura.jpg') center / cover no-repeat;
 	/* ajusta con tu imagen */
 	background-size: cover;
 	background-attachment: fixed;

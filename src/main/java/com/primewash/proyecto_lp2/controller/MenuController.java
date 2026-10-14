@@ -8,6 +8,6 @@ public class MenuController {
 
 	@GetMapping("/menu")
 	public String mostrarMenu() {
-		return "menu/menuPrincipal";
+		return "home/dashboard";
 	}
 }
