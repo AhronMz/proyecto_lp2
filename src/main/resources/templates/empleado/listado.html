@@ -1,125 +1,144 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="menu/menuPrincipal :: layoutBase(~{::contenido})">
 
-
 <div th:fragment="contenido">
 	
-		<div class="card shadow-lg">
-			<div class="card-body">
-				<div class="row mb-3 align-items-center">
-					<div class="col-md-10">
-						<h1 class="card-title">Listado de Empleados</h1>
-					</div>
-					<div class="col-md-2">
-						<a th:href="@{/menu/empleado/nuevo}" class="btn btn-success w-100">
-							<i class="fa-solid fa-plus"></i> Nuevo
-						</a>
-					</div>
+	<div class="card shadow-lg">
+		<div class="card-body">
+			<div class="row mb-3 align-items-center">
+				<div class="col-md-10">
+					<h1 class="card-title">Listado de Empleados</h1>
 				</div>
-				
-				<div class="mb-3">
-					<fieldset class="border border-2 border-dark px-2 pb-2">
-						<legend class="float-none w-auto px-2">Filtros</legend>
-						<form th:action="@{/menu/empleado/listado}" method="get" th:object="${filter}">
-							<div class="row align-items-end">
-								<div class="col-md-3">
-									<label for="codDistrito" class="form-label">Distrito</label>
-									<div class="input-group">
-										<span class="input-group-text"><i
-												class="fa-solid fa-chalkboard-user"></i></span>
-										<select class="form-select" th:field="*{codDistrito}">
-											<option value="">--Todos--</option>
-											<option th:each="item:${lstDistrito}"
-													th:value="${item.codDistrito}"
-													th:text="${item.nomDistrito}"
-											></option>
-										</select>
-									</div>
-								</div>
-								
-								<div class="col-md-3">
-									<label for="codRol" class="form-label">Rol</label>
-									<div class="input-group">
-										<span class="input-group-text"><i
-												class="fa-solid fa-chalkboard-user"></i></span>
-										<select class="form-select" th:field="*{codRol}">
-											<option value="">--Todos--</option>
-											<option th:each="item:${lstRol}"
-													th:value="${item.codRol}"
-													th:text="${item.nomRol}"
-											></option>
-										</select>
-									</div>
-								</div>
-								<div class="col text-end">
-									<button type="submit" class="btn btn-outline-dark">
-										<i class="fa-solid fa-binoculars"></i> Buscar
-									</button>
-									<a th:href="@{/menu/empleado/listado}" class="btn btn-outline-secondary">
-										<i class="fa-solid fa-broom"></i> Limpiar
-									</a>
+				<div class="col-md-2">
+					<a th:href="@{/menu/empleado/nuevo}" class="btn btn-success w-100">
+						<i class="fa-solid fa-plus"></i> Nuevo
+					</a>
+				</div>
+			</div>
+			
+			<!-- SECCIÓN DE FILTROS -->
+			<div class="mb-3">
+				<fieldset class="border border-2 border-dark px-3 pb-3 pt-2 rounded">
+					<legend class="float-none w-auto px-2 fw-bold text-dark fs-6">
+						<i class="fa-solid fa-filter me-1"></i> Filtros de Búsqueda
+					</legend>
+					<form th:action="@{/menu/empleado/listado}" method="get" th:object="${filter}">
+						<div class="row g-3 align-items-end">
+							
+							<!-- 1. FILTRO DISTRITO -->
+							<div class="col-md-3">
+								<label for="codDistrito" class="form-label fw-bold">Distrito</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+									<select class="form-select" th:field="*{codDistrito}">
+										<option value="">-- Todos --</option>
+										<option th:each="item : ${lstDistrito}"
+												th:value="${item.codDistrito}"
+												th:text="${item.nomDistrito}">
+										</option>
+									</select>
 								</div>
 							</div>
-						</form>
-					</fieldset>
-				</div>
-				
-				<div class="table-responsive overflow-auto" style="max-height: 70vh;">
-					<table class="table table-hover align-middle">
-						<thead class="table-dark text-center">
-							<tr class="position-sticky top-0">
-								<th>Código</th>
-								<th>Nombres</th>
-								<th>Apellidos</th>
-								<th>Tipo Doc.</th>
-								<th>Documento</th>
-								<th>Celular</th>
-								<th>Correo</th>
-								<th>Rol</th>
-								<th>Sexo</th>
-								<th>Distrito</th>
-								<th>Fec. Ingreso</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody class="table-secondary">
-							<tr th:each="e : ${lstEmpleado}">
-								<td th:text="${e.codEmpleado}" class="text-center"></td>
-								<td th:text="${e.nomEmpleado}"></td>
-								<td th:text="|${e.apePaternoEmpleado} ${e.apeMaternoEmpleado}|"></td>
-								<td th:text="${e.tipoDocumento}" class="text-center"></td>
-								<td th:text="${e.docId}" class="text-center"></td>
-								<td th:text="${e.celEmpleado}" class="text-center"></td>
-								<td th:text="${e.corEmpleado}"></td>
-								<td th:text="${e.rol.nomRol}" class="text-center"></td>
-								<td th:text="${e.sexo.nomSexo}" class="text-center"></td>
-								<td th:text="${e.distrito.nomDistrito}"></td>
-								<td th:text="${#temporals.format(e.fecEmpleado, 'dd-MM-yyyy')}" class="text-center">
-								</td>
-								<td class="text-center">
-									<div class="d-flex justify-content-center align-items-center gap-2">
-										<!-- Botón Editar -->
-										<a th:href="@{/menu/empleado/editar/{id}(id=${e.codEmpleado})}"
-											class="btn btn-outline-primary btn-sm" title="Editar" aria-label="Editar"
-											role="button">
-											<i class="fa-regular fa-pen-to-square"></i>
-										</a>
+							
+							<!-- 2. FILTRO ROL -->
+							<div class="col-md-3">
+								<label for="codRol" class="form-label fw-bold">Rol</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
+									<select class="form-select" th:field="*{codRol}">
+										<option value="">-- Todos --</option>
+										<option th:each="item : ${lstRol}"
+												th:value="${item.codRol}"
+												th:text="${item.nomRol}">
+										</option>
+									</select>
+								</div>
+							</div>
 
-										<!-- Switch Habilitar / Deshabilitar -->
-										<div class="form-check form-switch m-0 p-0" style="min-height: auto;">
-											<input class="form-check-input ms-0" type="checkbox" role="switch"
-												th:checked="${e.estado}" title="Cambiar Estado (Habilitar/Inhabilitar)"
-												th:onchange="|window.location.href='@{/menu/empleado/cambiar-estado/{id}(id=${e.codEmpleado})}'|"
-												style="cursor: pointer;">
-										</div>
+							<!-- 3. FILTRO ESTADO (NUEVO) -->
+							<div class="col-md-3">
+								<label for="estado" class="form-label fw-bold">Estado</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="fa-solid fa-toggle-on"></i></span>
+									<select class="form-select" th:field="*{estado}">
+										<option value="">-- Todos --</option>
+										<option value="true">Habilitados</option>
+										<option value="false">Inhabilitados</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- 4. BOTONES DE ACCIÓN -->
+							<div class="col-md-3 text-end d-flex gap-2">
+								<button type="submit" class="btn btn-outline-dark w-100">
+									<i class="fa-solid fa-binoculars me-1"></i> Buscar
+								</button>
+								<a th:href="@{/menu/empleado/listado}" class="btn btn-outline-secondary w-100">
+									<i class="fa-solid fa-broom me-1"></i> Limpiar
+								</a>
+							</div>
+
+						</div>
+					</form>
+				</fieldset>
+			</div>
+			
+			<!-- TABLA DE RESULTADOS -->
+			<div class="table-responsive overflow-auto" style="max-height: 70vh;">
+				<table class="table table-hover align-middle">
+					<thead class="table-dark text-center">
+						<tr class="position-sticky top-0">
+							<th>Código</th>
+							<th>Nombres</th>
+							<th>Apellidos</th>
+							<th>Tipo Doc.</th>
+							<th>Documento</th>
+							<th>Celular</th>
+							<th>Correo</th>
+							<th>Rol</th>
+							<th>Sexo</th>
+							<th>Distrito</th>
+							<th>Fec. Ingreso</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody class="table-secondary">
+						<tr th:each="e : ${lstEmpleado}">
+							<td th:text="${e.codEmpleado}" class="text-center"></td>
+							<td th:text="${e.nomEmpleado}"></td>
+							<td th:text="|${e.apePaternoEmpleado} ${e.apeMaternoEmpleado}|"></td>
+							<td th:text="${e.tipoDocumento}" class="text-center"></td>
+							<td th:text="${e.docId}" class="text-center"></td>
+							<td th:text="${e.celEmpleado}" class="text-center"></td>
+							<td th:text="${e.corEmpleado}"></td>
+							<td th:text="${e.rol.nomRol}" class="text-center"></td>
+							<td th:text="${e.sexo.nomSexo}" class="text-center"></td>
+							<td th:text="${e.distrito.nomDistrito}"></td>
+							<td th:text="${#temporals.format(e.fecEmpleado, 'dd-MM-yyyy')}" class="text-center"></td>
+							<td class="text-center">
+								<div class="d-flex justify-content-center align-items-center gap-2">
+									<!-- Botón Editar -->
+									<a th:href="@{/menu/empleado/editar/{id}(id=${e.codEmpleado})}"
+										class="btn btn-outline-primary btn-sm" title="Editar" aria-label="Editar"
+										role="button">
+										<i class="fa-regular fa-pen-to-square"></i>
+									</a>
+
+									<!-- Switch Habilitar / Deshabilitar -->
+									<div class="form-check form-switch m-0 p-0" style="min-height: auto;">
+										<input class="form-check-input ms-0" type="checkbox" role="switch"
+											th:checked="${e.estado}" title="Cambiar Estado (Habilitar/Inhabilitar)"
+											th:onchange="|window.location.href='@{/menu/empleado/cambiar-estado/{id}(id=${e.codEmpleado})}'|"
+											style="cursor: pointer;">
 									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 
+</div>
 
 </html>

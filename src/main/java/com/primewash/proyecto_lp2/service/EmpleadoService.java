@@ -23,7 +23,10 @@ public class EmpleadoService {
 	}
 	
 	public List<Empleado> search(EmpleadoFilter filter) {
-		return empleadoRepository.findByFilters(filter.codRol(),filter.codDistrito());
+//		if (filter == null) {
+//	        return empleadoRepository.findByFilters(null, null, null);
+//	    }
+		return empleadoRepository.findByFilters(filter.codRol(),filter.codDistrito(),filter.estado());
 	}
 	
 	@Transactional

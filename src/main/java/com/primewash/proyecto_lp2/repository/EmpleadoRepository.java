@@ -18,11 +18,14 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Integer>{
 				(e.rol.codRol = :codRol or :codRol is null)
 				and
 				(e.distrito.codDistrito = :codDistrito or :codDistrito is null)
+				and
+				(e.estado = :estado or :estado is null)
 			order by
 				e.codEmpleado desc
 			""")
 	List<Empleado> findByFilters(@Param("codRol") Integer codRol,
-								@Param("codDistrito") Integer codDistrito);
+								@Param("codDistrito") Integer codDistrito,
+								@Param("estado") Boolean estado );
 	
 	
 }
