@@ -17,5 +17,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>{
 			order by
 				p.codProducto desc
 			""")
-	List<Producto> findByFilters(@Param("codCategoria") Integer codCategoria);
+	List<Producto> findByFilters(@Param("codCategoria") Integer codCategoria,
+			@Param("estado") Boolean estado);
 }

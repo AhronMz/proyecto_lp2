@@ -50,4 +50,8 @@ public class Producto {
 
 	@Column(name = "fecing")
 	private LocalDate fecIngreso;
+	
+	@Column(name = "estado")
+    private Boolean estado;
+
 }

@@ -63,4 +63,14 @@ public class ProductoController {
 		flash.addFlashAttribute("alert",alert);
 		return "redirect:/menu/producto/listado";
 	}
+	
+	@GetMapping("/cambiar-estado/{id}")
+	public String cambiarEstado(@PathVariable Integer id, RedirectAttributes flash) {
+		var response = productoService.toggleEstado(id);
+		var alert = Alert.sweetToast(response.mensaje(), response.success() ? "success" : "error", 5000);
+
+		flash.addFlashAttribute("alert", alert);
+		return "redirect:/menu/producto/listado";
+	}
+
 }

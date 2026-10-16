@@ -32,6 +32,19 @@
 									</select>
 								</div>
 							</div>
+							
+							<div class="col-md-3">
+								<label for="estado" class="form-label fw-bold">Estado</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="fa-solid fa-toggle-on"></i></span>
+									<select class="form-select" th:field="*{estado}">
+										<option value="">-- Todos --</option>
+										<option value="true">Habilitados</option>
+										<option value="false">Inhabilitados</option>
+									</select>
+								</div>
+							</div>
+							
 							<div class="col text-end">
 								<button type="submit" class="btn btn-outline-dark">
 									<i class="fa-solid fa-binoculars"></i> Buscar
@@ -40,6 +53,7 @@
 									<i class="fa-solid fa-broom"></i> Limpiar
 								</a>
 							</div>
+							
 						</div>
 					</form>
 				</fieldset>
@@ -68,12 +82,20 @@
 							<td th:text="${p.canProducto}" class="text-center"></td>
 							<td th:text="|S/ ${p.preProducto}|" class="text-center"></td>
 							<td th:text="${#temporals.format(p.fecIngreso, 'dd-MM-yyyy')}" class="text-center"></td>
-							<td class="d-flex justify-content-evenly align-items-center text-center">
+							
+							<td class="d-flex justify-content-evenly align-items-center text-center">							
 								<a th:href="@{/menu/producto/editar/{id}(id=${p.codProducto})}"
 									class="btn btn-outline-primary" title="Editar" aria-label="Editar" role="button">
 									<i class="fa-regular fa-pen-to-square"></i>
 								</a>
-							</td>
+								
+								<div class="form-check form-switch m-0 p-0" style="min-height: auto;">
+									<input class="form-check-input ms-0" type="checkbox" role="switch"
+										th:checked="${p.estado}" title="Cambiar Estado (Habilitar/Inhabilitar)"
+										th:onchange="|window.location.href='@{/menu/producto/cambiar-estado/{id}(id=${p.codProducto})}'|"
+										style="cursor: pointer;">
+								</div>
+							</td>							
 						</tr>
 					</tbody>
 				</table>

@@ -20,7 +20,7 @@ public class ProductoService {
 	}
 	
 	public List<Producto> search(ProductoFilter filter){
-		return productoRepository.findByFilters(filter.codCategoria());
+		return productoRepository.findByFilters(filter.codCategoria(), filter.estado());
 	}
 	
 	@Transactional
@@ -50,4 +50,27 @@ public class ProductoService {
 			return new ResultadoResponse(false, "Hubo un error en la transacción");
 		}
 	}
+	
+	@Transactional
+	public ResultadoResponse toggleEstado(Integer id) {
+		try {
+			var producto = getOne(id);
+			if (producto == null) {
+				return new ResultadoResponse(false, "El empleado no existe");
+			}
+			
+			// Invertimos el valor booleano (true <-> false)
+			boolean nuevoEstado = !Boolean.TRUE.equals(producto.getEstado());
+			producto.setEstado(nuevoEstado);
+			productoRepository.save(producto);
+
+			String estadoTexto = nuevoEstado ? "activado" : "deshabilitado";
+			var mensaje = String.format("Producto con Id %d %s correctamente", id, estadoTexto);
+			return new ResultadoResponse(true, mensaje);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResultadoResponse(false, "Hubo un error al cambiar el estado del producto");
+		}
+	}
+
 }
