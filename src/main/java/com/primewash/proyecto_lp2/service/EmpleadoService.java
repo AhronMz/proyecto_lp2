@@ -23,9 +23,7 @@ public class EmpleadoService {
 	}
 	
 	public List<Empleado> search(EmpleadoFilter filter) {
-//		if (filter == null) {
-//	        return empleadoRepository.findByFilters(null, null, null);
-//	    }
+
 		return empleadoRepository.findByFilters(filter.codRol(),filter.codDistrito(),filter.estado());
 	}
 	
@@ -60,21 +58,20 @@ public class EmpleadoService {
 	@Transactional
 	public ResultadoResponse toggleEstado(Integer id) {
 		try {
-			var empleado = getOne(id);
+			var empleado = empleadoRepository.findById(id).orElse(null);
+			
 			if (empleado == null) {
 				return new ResultadoResponse(false, "El empleado no existe");
 			}
 			
-			// Invertimos el valor booleano (true <-> false)
-			boolean nuevoEstado = !Boolean.TRUE.equals(empleado.getEstado());
-			empleado.setEstado(nuevoEstado);
-			empleadoRepository.save(empleado);
-
-			String estadoTexto = nuevoEstado ? "activado" : "deshabilitado";
-			var mensaje = String.format("Empleado con Id %d %s correctamente", id, estadoTexto);
+			// Inversión directa del estado sin variables intermedias
+			empleado.setEstado(!empleado.getEstado());
+			
+			var mensaje = String.format("Empleado con Id %d %s", id, empleado.getEstado() ? "activado" : "deshabilitado");
+			
 			return new ResultadoResponse(true, mensaje);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResultadoResponse(false, "Hubo un error al cambiar el estado del empleado");
 		}
 	}

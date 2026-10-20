@@ -1,6 +1,6 @@
 package com.primewash.proyecto_lp2.model;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 import org.hibernate.annotations.DynamicInsert;
 
@@ -9,8 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,19 +25,22 @@ import lombok.Setter;
 @DynamicInsert
 public class Servicio {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codser")
-	private Integer codServicio;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codser")
+    private Integer codser;
 
-	@ManyToOne
-	@JoinColumn(name = "codcli")
-	private Cliente cliente;
+    @Column(name = "nomser")
+    private String nomser;
 
-	@ManyToOne
-	@JoinColumn(name = "codemp")
-	private Empleado empleado;
+    @Column(name = "desser")
+    private String desser;
 
-	@Column(name = "fecha")
-	private LocalDate fecha;
+    @Column(name = "preser")
+    private BigDecimal preser;
 
+    @Column(name = "duracion_min")
+    private Integer duracionMin;
+
+    @Column(name = "estado")
+    private Boolean estado;
 }
