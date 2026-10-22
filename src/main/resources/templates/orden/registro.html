@@ -1,0 +1,135 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{menu/menuPrincipal :: layoutBase(~{::contenido})}">
+
+<div th:fragment="contenido">
+    <div class="card shadow-lg text-dark">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="m-0"><i class="fa-regular fa-file-lines me-2"></i>Emisión de Orden / Boleta</h4>
+            <a th:href="@{/menu/orden/listado}" class="btn btn-outline-light btn-sm">
+                <i class="fa-solid fa-arrow-left me-1"></i> Volver al listado
+            </a>
+        </div>
+        <div class="card-body">
+
+            <!-- 1. SECCIÓN CLIENTE CON MODAL -->
+            <fieldset class="border border-2 px-3 pb-3 pt-2 rounded mb-4">
+                <legend class="float-none w-auto px-2 fw-bold text-primary fs-6">
+                    <i class="fa-solid fa-user me-1"></i> Datos del Cliente
+                </legend>
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#modalClientes">
+                            <i class="fa-solid fa-users-viewfinder me-1"></i> Buscar Cliente
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Cliente Seleccionado</label>
+                        <input type="text" class="form-control bg-light" readonly
+                               th:value="${session.cliente != null ? session.cliente.nomCliente + ' ' + session.cliente.apePaternoCliente + ' (' + session.cliente.docId + ')' : 'Ningún cliente seleccionado'}">
+                    </div>
+                    <div class="col-md-3" th:if="${session.cliente != null}">
+                        <a th:href="@{/menu/orden/validar-cliente(accion='limpiar')}" class="btn btn-secondary w-100">
+                            <i class="fa-solid fa-broom me-1"></i> Cambiar Cliente
+                        </a>
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <div class="d-flex gap-2 mb-3">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalServicios">
+                    <i class="fa-solid fa-soap me-1"></i> + Agregar Servicio
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProductos">
+                    <i class="fa-solid fa-boxes-stacked me-1"></i> + Agregar Producto
+                </button>
+            </div>
+
+
+            <form id="formAgregarItem" th:action="@{/menu/orden/agregar}" method="post" th:object="${itemSeleccionado}" class="d-none">
+                <input type="hidden" id="idServicio" th:field="*{idServicio}">
+                <input type="hidden" id="idProducto" th:field="*{idProducto}">
+                <input type="hidden" id="nombre" th:field="*{nombre}">
+                <input type="hidden" id="precio" th:field="*{precio}">
+                <input type="hidden" id="cantidad" th:field="*{cantidad}" value="1">
+            </form>
+
+
+            <div class="table-responsive mb-4">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>#</th>
+                            <th>Descripción del Ítem</th>
+                            <th>Precio Unitario</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(session.seleccionados)}">
+                            <td colspan="6" class="text-center text-muted py-3">No hay ítems agregados a la orden.</td>
+                        </tr>
+                        <tr th:each="item, stat : ${session.seleccionados}">
+                            <td th:text="${stat.count}" class="text-center fw-bold"></td>
+                            <td th:text="${item.nombre}"></td>
+                            <td th:text="|S/ ${item.precio}|" class="text-end"></td>
+                            <td th:text="${item.cantidad}" class="text-center"></td>
+                            <td th:text="|S/ ${item.precio * (item.cantidad ?: 1)}|" class="text-end fw-bold"></td>
+                            <td class="text-center">
+                                <form th:action="@{/menu/orden/remover}" method="post" class="m-0">
+                                    <input type="hidden" name="index" th:value="${stat.index}">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" title="Quitar">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <form th:action="@{/menu/orden/registrar}" method="post" class="m-0">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Registrar e Imprimir Boleta
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div th:replace="~{fragments/modales :: modal-servicios(${servicios}, 'modalServicios')}"></div>
+    <div th:replace="~{fragments/modales :: modal-productos(${productos}, 'modalProductos')}"></div>
+    <div th:replace="~{fragments/modales :: modal-clientes(${clientes}, 'modalClientes')}"></div>
+
+    <script th:inline="javascript">
+        $(document).on("click", ".btnSeleccionarCliente", function () {
+            const docId = $(this).data("docid");
+            const baseUrl = /*[[@{/menu/orden/validar-cliente}]]*/ '/menu/orden/validar-cliente';
+            window.location.href = baseUrl + '?accion=buscar&docid=' + docId;
+        });
+
+        $(document).on("click", ".btnSeleccionarServ", function () {
+            $("#idServicio").val($(this).data("id"));
+            $("#idProducto").val("");
+            $("#nombre").val($(this).data("nombre"));
+            $("#precio").val($(this).data("precio"));
+            $("#cantidad").val(1);
+            $("#formAgregarItem").submit();
+        });
+
+        $(document).on("click", ".btnSeleccionarProd", function () {
+            $("#idProducto").val($(this).data("id"));
+            $("#idServicio").val("");
+            $("#nombre").val($(this).data("nombre"));
+            $("#precio").val($(this).data("precio"));
+            $("#cantidad").val(1);
+            $("#formAgregarItem").submit();
+        });
+    </script>
+</div>
+
+</html>

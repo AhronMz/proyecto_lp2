@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- 1. MODAL PARA SELECCIONAR PRODUCTOS -->
+<div th:fragment="modal-productos(productos, idModal)">
+	<div class="modal fade" th:id="${idModal}" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content text-dark">
+				<div class="modal-header bg-dark text-white">
+					<h5 class="modal-title"><i class="fa-solid fa-boxes-stacked me-2"></i>Seleccionar Producto</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table id="tblSelectorProductos" class="table table-hover align-middle">
+							<thead class="table-secondary">
+								<tr>
+									<th>Código</th>
+									<th>Nombre</th>
+									<th>Stock</th>
+									<th>Precio</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="prod : ${productos}">
+									<td th:text="${prod.codProducto}"></td>
+									<td th:text="${prod.nomProducto}"></td>
+									<td th:text="${prod.canProducto}" class="text-center"></td>
+									<td th:text="|S/ ${prod.preProducto}|"></td>
+									<td>
+										<button type="button" class="btn btn-primary btn-sm btnSeleccionarProd"
+											th:data-id="${prod.codProducto}"
+											th:data-nombre="${prod.nomProducto}" 
+											th:data-precio="${prod.preProducto}">
+											Seleccionar
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			const idTabla = '#tblSelectorProductos';
+			if ($.fn.DataTable.isDataTable(idTabla)) {
+				$(idTabla).DataTable().destroy();
+			}
+			$(idTabla).DataTable({
+				lengthMenu: [5, 10],
+				pageLength: 5,
+				language: {
+					url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+					search: "Filtrar :"
+				}
+			});
+		});
+	</script>
+</div>
+
+<!-- 2. MODAL PARA SELECCIONAR SERVICIOS -->
+<div th:fragment="modal-servicios(servicios, idModal)">
+	<div class="modal fade" th:id="${idModal}" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content text-dark">
+				<div class="modal-header bg-dark text-white">
+					<h5 class="modal-title"><i class="fa-solid fa-soap me-2"></i>Seleccionar Servicio</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table id="tblSelectorServicios" class="table table-hover align-middle">
+							<thead class="table-secondary">
+								<tr>
+									<th>Código</th>
+									<th>Nombre</th>
+									<th>Duración</th>
+									<th>Precio</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="ser : ${servicios}">
+									<td th:text="${ser.codser}"></td>
+									<td th:text="${ser.nomser}"></td>
+									<td th:text="|${ser.duracionMin} min|"></td>
+									<td th:text="|S/ ${ser.preser}|"></td>
+									<td>
+										<button type="button" class="btn btn-success btn-sm btnSeleccionarServ"
+											th:data-id="${ser.codser}"
+											th:data-nombre="${ser.nomser}" 
+											th:data-precio="${ser.preser}">
+											Seleccionar
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			const idTabla = '#tblSelectorServicios';
+			if ($.fn.DataTable.isDataTable(idTabla)) {
+				$(idTabla).DataTable().destroy();
+			}
+			$(idTabla).DataTable({
+				lengthMenu: [5, 10],
+				pageLength: 5,
+				language: {
+					url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+					search: "Filtrar :"
+				}
+			});
+		});
+	</script>
+</div>
+
+<!-- 3. MODAL PARA SELECCIONAR CLIENTES -->
+<div th:fragment="modal-clientes(clientes, idModal)">
+	<div class="modal fade" th:id="${idModal}" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content text-dark">
+				<div class="modal-header bg-dark text-white">
+					<h5 class="modal-title"><i class="fa-solid fa-user me-2"></i>Seleccionar Cliente</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="table-responsive">
+						<table id="tblSelectorClientes" class="table table-hover align-middle">
+							<thead class="table-secondary">
+								<tr>
+									<th>Documento</th>
+									<th>Nombre / Razón Social</th>
+									<th>Teléfono</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cli : ${clientes}">
+									<td th:text="${cli.docId}"></td>
+									<td th:text="|${cli.nomCliente} ${cli.apePaternoCliente}|"></td>
+									<td th:text="${cli.telCliente}"></td>
+									<td>
+										<button type="button" class="btn btn-info btn-sm btnSeleccionarCliente"
+											th:data-docid="${cli.docId}">
+											Seleccionar
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			const idTabla = '#tblSelectorClientes';
+			if ($.fn.DataTable.isDataTable(idTabla)) {
+				$(idTabla).DataTable().destroy();
+			}
+			$(idTabla).DataTable({
+				lengthMenu: [5, 10],
+				pageLength: 5,
+				language: {
+					url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+					search: "Filtrar :"
+				}
+			});
+		});
+	</script>
+</div>
+
+</html>

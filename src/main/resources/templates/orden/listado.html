@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{menu/menuPrincipal :: layoutBase(~{::contenido})}">
+
+<div th:fragment="contenido">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-10">
+                    <h1 class="card-title text-dark">Listado de Órdenes / Boletas</h1>
+                </div>
+                <div class="col-md-2">
+                    <a th:href="@{/menu/orden/nuevo}" class="btn btn-success w-100">
+                        <i class="fa-solid fa-plus me-1"></i> Nueva Orden
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+				<table class="table table-hover align-middle">
+				    <thead class="table-dark text-center">
+				        <tr>
+				            <th>Nº Boleta</th>
+				            <th>Fecha</th>
+				            <th>Cliente</th>
+				            <th>Atendido Por</th>
+				            <th>Total (S/)</th>
+				            <th>Estado</th>
+
+				            <th th:if="${session.ID_TIPO == 1}">Acciones</th>
+				        </tr>
+				    </thead>
+				    <tbody class="table-secondary text-dark">
+				        <tr th:each="o : ${lstOrdenes}">
+				            <td th:text="${o.numBoleta}" class="fw-bold text-center"></td>
+				            <td th:text="${#temporals.format(o.fecOrden, 'dd/MM/yyyy HH:mm')}" class="text-center"></td>
+							<td th:text="|${o.cliente.nomCliente} ${o.cliente.apePaternoCliente}|"></td>
+							<td th:text="|${o.empleado.nomEmpleado} ${o.empleado.apePaternoEmpleado}|"></td>
+				            <td th:text="|S/ ${o.total}|" class="fw-bold text-end"></td>
+				            <td class="text-center">
+				                <span class="badge" 
+				                      th:classappend="${o.estado == 'PAGADO' ? 'bg-success' : 'bg-danger'}" 
+				                      th:text="${o.estado}">
+				                </span>
+				            </td>
+				            
+
+							<td class="text-center" th:if="${session.ID_TIPO == 1}">
+							    <form th:action="@{/menu/orden/anular/{id}(id=${o.codOrden})}" method="post" class="m-0 form-anular"
+							          th:if="${o.estado == 'PAGADO'}">
+							        <button type="submit" class="btn btn-outline-danger btn-sm" title="Anular Boleta">
+							            <i class="fa-solid fa-ban me-1"></i> Anular
+							        </button>
+							    </form>
+							</td>
+				        </tr>
+				    </tbody>
+				</table>
+            </div>
+			
+        </div>
+    </div>
+
+    <script>
+        $(document).on("submit", ".form-anular", function (e) {
+            e.preventDefault();
+            const form = this;
+
+            Swal.fire({
+                title: '¿Está seguro de anular esta boleta?',
+                text: "Esta acción devolverá el stock de los productos e inactivará la orden.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, anular',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</div>
+
+</html>
