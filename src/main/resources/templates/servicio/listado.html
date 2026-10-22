@@ -7,7 +7,8 @@
                 <div class="col-md-10">
                     <h1 class="card-title">Listado de Servicios</h1>
                 </div>
-                <div class="col-md-2">
+
+                <div class="col-md-2" th:if="${session.ID_TIPO == 1}">
                     <a th:href="@{/menu/servicio/nuevo}" class="btn btn-success w-100">
                         <i class="fa-solid fa-plus"></i> Nuevo
                     </a>
@@ -56,7 +57,8 @@
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Duración (min)</th>
-                            <th>Acciones</th>
+
+                            <th th:if="${session.ID_TIPO == 1}">Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="table-secondary">
@@ -66,7 +68,8 @@
                             <td th:text="${s.desser}"></td>
                             <td th:text="|S/ ${s.preser}|" class="text-center"></td>
                             <td th:text="${s.duracionMin}" class="text-center"></td>
-                            <td class="text-center">
+ 
+                            <td class="text-center" th:if="${session.ID_TIPO == 1}">
                                 <div class="d-flex justify-content-center align-items-center gap-2">
                                     <a th:href="@{/menu/servicio/editar/{id}(id=${s.codser})}"
                                         class="btn btn-outline-primary btn-sm" title="Editar">

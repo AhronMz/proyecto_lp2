@@ -8,14 +8,15 @@
 				<div class="col-md-10">
 					<h1 class="card-title">Listado de Empleados</h1>
 				</div>
-				<div class="col-md-2">
+
+				<div class="col-md-2" th:if="${session.ID_TIPO == 1}">
 					<a th:href="@{/menu/empleado/nuevo}" class="btn btn-success w-100">
 						<i class="fa-solid fa-plus"></i> Nuevo
 					</a>
 				</div>
 			</div>
 			
-			<!-- SECCIÓN DE FILTROS -->
+
 			<div class="mb-3">
 				<fieldset class="border border-2 border-dark px-3 pb-3 pt-2 rounded">
 					<legend class="float-none w-auto px-2 fw-bold text-dark fs-6">
@@ -24,7 +25,7 @@
 					<form th:action="@{/menu/empleado/listado}" method="get" th:object="${filter}">
 						<div class="row g-3 align-items-end">
 							
-							<!-- 1. FILTRO DISTRITO -->
+
 							<div class="col-md-3">
 								<label for="codDistrito" class="form-label fw-bold">Distrito</label>
 								<div class="input-group">
@@ -39,7 +40,7 @@
 								</div>
 							</div>
 							
-							<!-- 2. FILTRO ROL -->
+
 							<div class="col-md-3">
 								<label for="codRol" class="form-label fw-bold">Rol</label>
 								<div class="input-group">
@@ -54,7 +55,7 @@
 								</div>
 							</div>
 
-							<!-- 3. FILTRO ESTADO (NUEVO) -->
+
 							<div class="col-md-3">
 								<label for="estado" class="form-label fw-bold">Estado</label>
 								<div class="input-group">
@@ -67,7 +68,7 @@
 								</div>
 							</div>
 
-							<!-- 4. BOTONES DE ACCIÓN -->
+
 							<div class="col-md-3 text-end d-flex gap-2">
 								<button type="submit" class="btn btn-outline-dark w-100">
 									<i class="fa-solid fa-binoculars me-1"></i> Buscar
@@ -82,7 +83,7 @@
 				</fieldset>
 			</div>
 			
-			<!-- TABLA DE RESULTADOS -->
+
 			<div class="table-responsive overflow-auto" style="max-height: 70vh;">
 				<table class="table table-hover align-middle">
 					<thead class="table-dark text-center">
@@ -98,7 +99,7 @@
 							<th>Sexo</th>
 							<th>Distrito</th>
 							<th>Fec. Ingreso</th>
-							<th>Acciones</th>
+							<th th:if="${session.ID_TIPO == 1}">Acciones</th>
 						</tr>
 					</thead>
 					<tbody class="table-secondary">
@@ -114,16 +115,18 @@
 							<td th:text="${e.sexo.nomSexo}" class="text-center"></td>
 							<td th:text="${e.distrito.nomDistrito}"></td>
 							<td th:text="${#temporals.format(e.fecEmpleado, 'dd-MM-yyyy')}" class="text-center"></td>
-							<td class="text-center">
+							
+
+							<td class="text-center" th:if="${session.ID_TIPO == 1}">
 								<div class="d-flex justify-content-center align-items-center gap-2">
-									<!-- Botón Editar -->
+
 									<a th:href="@{/menu/empleado/editar/{id}(id=${e.codEmpleado})}"
 										class="btn btn-outline-primary btn-sm" title="Editar" aria-label="Editar"
 										role="button">
 										<i class="fa-regular fa-pen-to-square"></i>
 									</a>
 
-									<!-- Switch Habilitar / Deshabilitar -->
+									
 									<div class="form-check form-switch m-0 p-0" style="min-height: auto;">
 										<input class="form-check-input ms-0" type="checkbox" role="switch"
 											th:checked="${e.estado}" title="Cambiar Estado (Habilitar/Inhabilitar)"

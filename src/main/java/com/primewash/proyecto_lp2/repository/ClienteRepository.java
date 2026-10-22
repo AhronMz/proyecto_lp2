@@ -1,6 +1,7 @@
 package com.primewash.proyecto_lp2.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
 	List<Cliente> findAllByOrderByCodClienteDesc();
 	
+	Optional<Cliente> findByDocId(String docId);
 	
 	@Query("""
 			select c from Cliente c

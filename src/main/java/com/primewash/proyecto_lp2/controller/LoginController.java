@@ -16,38 +16,40 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
-	
-	private final AutenticacionService autenticacionService;
-	
-	@GetMapping("/")
-    public String root(Model model) {
-		model.addAttribute("filter", new AutenticacionFilter(null, null));
-		return "login";
-    }
-	
-	@GetMapping("iniciar-sesion")
-	public String iniciarSesion(@ModelAttribute AutenticacionFilter filter,RedirectAttributes flash, Model model, HttpSession session) {
-			
-		var usuario = autenticacionService.autentic(filter);
-		
-		if (usuario == null) {
-			var alert = Alert.sweetAlertError("Cuenta y/o clave inválidos");
-			model.addAttribute("alert", alert);
-			model.addAttribute("filter", new AutenticacionFilter(null, null));
-			return "login";
-		}
-		
-		session.setAttribute("fullName", usuario.getNombreCompleto());
-		session.setAttribute("idTipo", usuario.getRol().getNomRol());
-		
-		String alert = Alert.sweetImageUrl("Bienvenido a PrimeWash", usuario.getNombreCompleto(), "/imagenes/bienvenida_carwash.gif");
-		flash.addFlashAttribute("alert", alert);
-		return "redirect:/home/dashboard";
-	}
-	
-	@GetMapping("cerrar-sesion")
-	public String cerrarSesion() {
-		return "redirect:/";
-	}
 
+    private final AutenticacionService autenticacionService;
+
+    @GetMapping("/")
+    public String root(Model model) {
+        model.addAttribute("filter", new AutenticacionFilter(null, null));
+        return "login";
+    }
+
+    @GetMapping("iniciar-sesion")
+    public String iniciarSesion(@ModelAttribute AutenticacionFilter filter, RedirectAttributes flash, Model model, HttpSession session) {
+
+        var usuario = autenticacionService.autentic(filter);
+
+        if (usuario == null) {
+            var alert = Alert.sweetAlertError("Cuenta y/o clave inválidos");
+            model.addAttribute("alert", alert);
+            model.addAttribute("filter", new AutenticacionFilter(null, null));
+            return "login";
+        }
+
+        session.setAttribute("fullName", usuario.getNombreCompleto());
+        session.setAttribute("ID_TIPO", usuario.getRol().getCodRol());
+        
+        session.setAttribute("ID_EMPLEADO", usuario.getCodEmpleado());
+
+        String alert = Alert.sweetImageUrl("Bienvenido a PrimeWash", usuario.getNombreCompleto(), "/imagenes/bienvenida_carwash.gif");
+        flash.addFlashAttribute("alert", alert);
+        return "redirect:/home/dashboard";
+    }
+
+    @GetMapping("cerrar-sesion")
+    public String cerrarSesion(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

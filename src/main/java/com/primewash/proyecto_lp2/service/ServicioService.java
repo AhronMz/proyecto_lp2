@@ -18,7 +18,7 @@ public class ServicioService {
 	
 	private final ServicioRepository servicioRepository;
 	
-	List<Servicio> getAll(){
+	public List<Servicio> getAll(){
 		return servicioRepository.findAllByOrderByCodserDesc();
 	}
 	
@@ -75,21 +75,4 @@ public class ServicioService {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

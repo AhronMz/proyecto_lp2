@@ -1,6 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="menu/menuPrincipal :: layoutBase(~{::contenido})">
 
-
 <div th:fragment="contenido">
 
 	<div class="card shadow-lg">
@@ -9,7 +8,8 @@
 				<div class="col-md-10">
 					<h1 class="card-title">Listado de Productos</h1>
 				</div>
-				<div class="col-md-2">
+
+				<div class="col-md-2" th:if="${session.ID_TIPO == 1}">
 					<a th:href="@{/menu/producto/nuevo}" class="btn btn-success w-100">
 						<i class="fa-solid fa-plus"></i> Nuevo
 					</a>
@@ -70,7 +70,8 @@
 							<th>Stock</th>
 							<th>Precio Unit.</th>
 							<th>Fec. Ingreso</th>
-							<th>Acciones</th>
+
+							<th th:if="${session.ID_TIPO == 1}">Acciones</th>
 						</tr>
 					</thead>
 					<tbody class="table-secondary">
@@ -83,7 +84,7 @@
 							<td th:text="|S/ ${p.preProducto}|" class="text-center"></td>
 							<td th:text="${#temporals.format(p.fecIngreso, 'dd-MM-yyyy')}" class="text-center"></td>
 							
-							<td class="d-flex justify-content-evenly align-items-center text-center">							
+							<td class="d-flex justify-content-evenly align-items-center text-center" th:if="${session.ID_TIPO == 1}">							
 								<a th:href="@{/menu/producto/editar/{id}(id=${p.codProducto})}"
 									class="btn btn-outline-primary" title="Editar" aria-label="Editar" role="button">
 									<i class="fa-regular fa-pen-to-square"></i>

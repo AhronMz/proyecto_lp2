@@ -26,7 +26,13 @@ public class ClienteService {
 	public List<Cliente> search(ClienteFilter filter){
 		return clienteRepository.findByFilters(filter.codDistrito());
 	}
-	
+	public Cliente getOneByDocid(String docId) {
+	    if (docId == null || docId.trim().isEmpty()) {
+	        return null;
+	    }
+	    return clienteRepository.findByDocId(docId).orElse(null);
+	}
+
 	@Transactional
 	public ResultadoResponse create(Cliente c) {
 		try {
@@ -54,4 +60,6 @@ public class ClienteService {
 			return new ResultadoResponse(false, "Hubo un error en la transacción");
 		}
 	}
+
+	
 }

@@ -1,11 +1,14 @@
 package com.primewash.proyecto_lp2.service;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.primewash.proyecto_lp2.dto.ProductoFilter;
 import com.primewash.proyecto_lp2.dto.ResultadoResponse;
 import com.primewash.proyecto_lp2.model.Producto;
 import com.primewash.proyecto_lp2.repository.ProductoRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +22,7 @@ public class ProductoService {
 		return productoRepository.findAllByOrderByCodProductoDesc();
 	}
 	
+
 	public List<Producto> search(ProductoFilter filter){
 		return productoRepository.findByFilters(filter.codCategoria(), filter.estado());
 	}
