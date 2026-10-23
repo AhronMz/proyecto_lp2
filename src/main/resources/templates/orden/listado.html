@@ -44,13 +44,22 @@
 				            </td>
 				            
 
-							<td class="text-center" th:if="${session.ID_TIPO == 1}">
-							    <form th:action="@{/menu/orden/anular/{id}(id=${o.codOrden})}" method="post" class="m-0 form-anular"
-							          th:if="${o.estado == 'PAGADO'}">
-							        <button type="submit" class="btn btn-outline-danger btn-sm" title="Anular Boleta">
-							            <i class="fa-solid fa-ban me-1"></i> Anular
-							        </button>
-							    </form>
+							<td th:if="${session.ID_TIPO == 1}">
+							    <div class="d-flex justify-content-center align-items-center gap-2">
+							        <!-- Botón PDF -->
+									<a th:href="@{/reporte/orden/{codOrden}(codOrden=${o.codOrden})}" target="_blank" 
+									   class="text-danger fs-5" title="Imprimir Boleta PDF">
+									    <i class="fa-solid fa-file-pdf"></i>
+									</a>
+							        
+							        <!-- Botón Anular existente -->
+							        <form th:action="@{/menu/orden/anular/{id}(id=${o.codOrden})}" method="post" class="m-0 form-anular"
+							              th:if="${o.estado == 'PAGADO'}">
+							            <button type="submit" class="btn btn-outline-danger btn-sm" title="Anular Boleta">
+							                <i class="fa-solid fa-ban"></i>
+							            </button>
+							        </form>
+							    </div>
 							</td>
 				        </tr>
 				    </tbody>
