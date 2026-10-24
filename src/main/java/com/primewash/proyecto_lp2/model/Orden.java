@@ -51,11 +51,11 @@ public class Orden {
     @JoinColumn(name = "codemp")
     private Empleado empleado;
 
-    // Relación Bidireccional con el Detalle
+
     @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL)
     private List<DetalleOrden> detalles = new ArrayList<>();
 
-    // Método utilitario para enlazar cada fila con esta cabecera
+
     public void addDetalle(DetalleOrden detalle) {
         detalles.add(detalle);
         detalle.setOrden(this);

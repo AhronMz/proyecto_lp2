@@ -63,7 +63,7 @@ public class ServicioService {
 				return new ResultadoResponse(false, "El servicio no existe");
 			}
 			
-			// Inversión directa del estado sin variables intermedias
+
 			servicio.setEstado(!servicio.getEstado());
 			
 			var mensaje = String.format("Servicio con Id %d %s", id, servicio.getEstado() ? "activado" : "deshabilitado");

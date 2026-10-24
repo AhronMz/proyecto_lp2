@@ -11,54 +11,63 @@
         </div>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
 
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-lg h-100 text-dark text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column align-items-center">
                     <i class="fa-solid fa-users fa-3x text-primary mb-3"></i>
-                    <h4 class="card-title">Clientes</h4>
+                    <h4 class="card-title fw-bold">Clientes</h4>
                     <p class="text-muted">Registra y administra tus clientes.</p>
-                    <a th:href="@{/menu/cliente/listado}" class="btn btn-primary mt-auto">Ir a clientes</a>
+                    <a th:href="@{/menu/cliente/listado}" class="btn btn-primary mt-auto w-100">Ir a clientes</a>
                 </div>
             </div>
         </div>
 
-
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-lg h-100 text-dark text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column align-items-center">
                     <i class="fa-solid fa-user-tie fa-3x text-primary mb-3"></i>
-                    <h4 class="card-title">Empleados</h4>
+                    <h4 class="card-title fw-bold">Empleados</h4>
                     <p class="text-muted">Registra y administra tu personal.</p>
-                    <a th:href="@{/menu/empleado/listado}" class="btn btn-primary mt-auto">Ir a empleados</a>
+                    <a th:href="@{/menu/empleado/listado}" class="btn btn-primary mt-auto w-100">Ir a empleados</a>
                 </div>
             </div>
         </div>
 
-
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-lg h-100 text-dark text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column align-items-center">
                     <i class="fa-solid fa-boxes-stacked fa-3x text-primary mb-3"></i>
-                    <h4 class="card-title">Productos</h4>
+                    <h4 class="card-title fw-bold">Productos</h4>
                     <p class="text-muted">Controla el inventario de productos.</p>
-                    <a th:href="@{/menu/producto/listado}" class="btn btn-primary mt-auto">Ir a productos</a>
+                    <a th:href="@{/menu/producto/listado}" class="btn btn-primary mt-auto w-100">Ir a productos</a>
                 </div>
             </div>
         </div>
 
-
-        <div class="col-12 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-lg h-100 text-dark text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column align-items-center">
                     <i class="fa-solid fa-bell-concierge fa-3x text-primary mb-3"></i>
-                    <h4 class="card-title">Servicios</h4>
+                    <h4 class="card-title fw-bold">Servicios</h4>
                     <p class="text-muted">Gestiona el catálogo de servicios.</p>
-                    <a th:href="@{/menu/servicio/listado}" class="btn btn-primary mt-auto">Ir a servicios</a>
+                    <a th:href="@{/menu/servicio/listado}" class="btn btn-primary mt-auto w-100">Ir a servicios</a>
                 </div>
             </div>
         </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card shadow-lg h-100 text-dark text-center">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <i class="fa-solid fa-receipt fa-3x text-primary mb-3"></i>
+                    <h4 class="card-title fw-bold">Órdenes</h4>
+                    <p class="text-muted">Registra y administra las órdenes de todos los servicios.</p>
+                    <a th:href="@{/menu/orden/listado}" class="btn btn-primary mt-auto w-100">Ir a órdenes</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

@@ -6,4 +6,6 @@ public record OrdenFilter(
     public OrdenFilter withCodEmpleado(Integer codEmpleado) {
         return new OrdenFilter(codEmpleado);
     }
+    
+    
 }

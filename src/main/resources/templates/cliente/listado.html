@@ -58,7 +58,7 @@
 							<th>Sexo</th>
 							<th>Distrito</th>
 							<th>Fecha Registro</th>
-							<th>Acciones</th>
+							<th th:if="${session.ID_TIPO == 1}">Acciones</th>
 						</tr>
 					</thead>
 					<tbody class="table-secondary">
@@ -73,13 +73,14 @@
 							<td th:text="${c.distrito.nomDistrito}"></td>
 							<td th:text="${#temporals.format(c.fecRegistro, 'dd-MM-yyyy')}" class="text-center">
 							</td>
-							<td class="d-flex justify-content-evenly align-items-center text-center">
+							<td class="text-center" th:if="${session.ID_TIPO == 1}">
+							<div class="d-flex justify-content-evenly align-items-center text-center">
 								<a th:href="@{/menu/cliente/editar/{id}(id=${c.codCliente})}"
 									class="btn btn-outline-primary" title="Editar" aria-label="Editar" role="button">
 									<i class="fa-regular fa-pen-to-square"></i>
 								</a>
+							</div>
 							</td>
-
 						</tr>
 					</tbody>
 				</table>

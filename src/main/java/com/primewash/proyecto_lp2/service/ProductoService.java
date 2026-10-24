@@ -63,7 +63,7 @@ public class ProductoService {
 				return new ResultadoResponse(false, "El empleado no existe");
 			}
 			
-			// Invertimos el valor booleano (true <-> false)
+
 			boolean nuevoEstado = !Boolean.TRUE.equals(producto.getEstado());
 			producto.setEstado(nuevoEstado);
 			productoRepository.save(producto);

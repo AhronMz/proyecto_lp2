@@ -20,7 +20,7 @@ public class OrdenService {
     private final OrdenRepository ordenRepository;
     private final ProductoRepository productoRepository;
 
-    // Búsqueda con filtro por empleado
+
     public List<Orden> search(OrdenFilter filter) {
         if (filter == null) {
             return ordenRepository.findByFilters(null);
@@ -29,12 +29,12 @@ public class OrdenService {
     }
     
     
-    // Listado general de órdenes
+
     public List<Orden> getAll() {
         return ordenRepository.findAll();
     }
 
-    // Generador del correlativo de boleta (BOL-0001, BOL-0002, etc.)
+
     public String generarNumeroBoleta() {
         var ultimaOrden = ordenRepository.findTopByOrderByCodOrdenDesc();
         if (ultimaOrden.isPresent()) {
@@ -47,7 +47,7 @@ public class OrdenService {
     @Transactional
     public ResultadoResponse create(Orden orden) {
         try {
-            // Descuento de stock para los productos incluidos en el detalle
+
             for (var det : orden.getDetalles()) {
                 if (det.getProducto() != null) {
                     var prod = det.getProducto();
@@ -56,7 +56,6 @@ public class OrdenService {
                 }
             }
 
-            // Guardado en cascada de la Orden y sus DetalleOrden
             var registrada = ordenRepository.save(orden);
             var mensaje = String.format("Orden con Nro. %s registrada", registrada.getNumBoleta());
 
